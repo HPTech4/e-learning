@@ -207,3 +207,73 @@ export async function getDashboardStats() {
     recentUploads,
   }
 }
+
+// ============================================================
+// SEARCH (with joined school + department context)
+// ============================================================
+
+export type SearchResult = Material & {
+  department: {
+    id: string
+    name: string
+    slug: string
+    school: {
+      id: string
+      name: string
+      short_name: string
+      slug: string
+    }
+  }
+}
+
+export async function searchMaterialsDetailed(
+  query: string
+): Promise<SearchResult[]> {
+  const q = query.trim()
+  if (!q) return []
+
+  // Escape % and _ so user input can't break ILIKE
+  const safe = q.replace(/[%_]/g, (m) => `\\${m}`)
+
+  const { data, error } = await supabase
+    .from('materials')
+    .select(
+      `
+      *,
+      department:departments (
+        id,
+        name,
+        slug,
+        school:schools (
+          id,
+          name,
+          short_name,
+          slug
+        )
+      )
+    `
+    )
+    .or(`course_code.ilike.%${safe}%,course_title.ilike.%${safe}%`)
+    .order('download_count', { ascending: false })
+    .limit(80)
+
+  if (error) throw error
+
+  // Sort: exact course_code match first, then code-starts-with, then rest
+  const lower = q.toLowerCase()
+  const results = (data ?? []) as unknown as SearchResult[]
+  return results.sort((a, b) => {
+    const aCode = a.course_code.toLowerCase()
+    const bCode = b.course_code.toLowerCase()
+
+    const aExact = aCode === lower ? 0 : 1
+    const bExact = bCode === lower ? 0 : 1
+    if (aExact !== bExact) return aExact - bExact
+
+    const aStarts = aCode.startsWith(lower) ? 0 : 1
+    const bStarts = bCode.startsWith(lower) ? 0 : 1
+    if (aStarts !== bStarts) return aStarts - bStarts
+
+    return b.download_count - a.download_count
+  })
+}
