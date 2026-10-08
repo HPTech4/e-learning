@@ -24,7 +24,7 @@ import { ChartCard } from '../../components/admin/ChartCard'
 import { getDashboardData } from '../../lib/dashboard'
 import { formatDate } from '../../lib/utils'
 import { cn } from '../../lib/utils'
-import { usePageTitle } from '../hooks/usePageTitle' 
+import { usePageTitle } from '../../hooks/usePageTitle' 
 
 type LevelMetric = 'materials' | 'downloads'
 type DeptSortKey = 'name' | 'materials' | 'downloads' | 'lastUpload'

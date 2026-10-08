@@ -20,7 +20,7 @@ import {
 } from '../../lib/queries'
 import { supabase } from '../../lib/supabase'
 import { formatDate, formatFileSize } from '../../lib/utils'
-import { usePageTitle } from '../hooks/usePageTitle' 
+import { usePageTitle } from '../../hooks/usePageTitle' 
 
 interface MaterialRow {
   id: string

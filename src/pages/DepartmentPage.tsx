@@ -11,7 +11,7 @@ import { EmptyState } from '../components/ui/EmptyState'
 import { usePageTitle } from '../hooks/usePageTitle' 
 
 export default function DepartmentPage() {
-  usePageTitle(department?.name)
+  
   const { schoolSlug = '', deptSlug = '' } = useParams()
 
   const { data: school, isLoading: loadingSchool } = useQuery({
@@ -24,6 +24,8 @@ export default function DepartmentPage() {
     queryFn: () => getDepartmentBySlug(school!.id, deptSlug),
     enabled: !!school?.id,
   })
+
+  usePageTitle(department?.name)
 
   if (loadingSchool || loadingDept) {
     return (

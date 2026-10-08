@@ -7,11 +7,13 @@ import { EmptyState } from '../components/ui/EmptyState'
 import { usePageTitle } from '../hooks/usePageTitle' 
 
 export default function Browse() {
-  usePageTitle('Browse Schools')
+  
   const { data: schools, isLoading, error } = useQuery({
     queryKey: ['schools'],
     queryFn: getSchools,
   })
+
+  usePageTitle('Browse Schools')
 
   return (
     <Layout>

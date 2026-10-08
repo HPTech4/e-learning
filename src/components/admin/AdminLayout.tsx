@@ -31,9 +31,9 @@ export function AdminLayout({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="h-screen bg-gray-50 flex overflow-hidden">
       {/* Sidebar - desktop */}
-      <aside className="hidden lg:flex lg:flex-col w-60 shrink-0 bg-white border-r border-gray-100">
+      <aside className="hidden lg:flex lg:flex-col w-60 shrink-0 bg-white border-r border-gray-100 h-screen">
         <SidebarContent user={user?.email} onSignOut={handleSignOut} />
       </aside>
 
@@ -62,7 +62,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       )}
 
       {/* Main column */}
-      <div className="flex-1 min-w-0 flex flex-col">
+      <div className="flex-1 min-w-0 flex flex-col h-screen">
         {/* Mobile top bar */}
         <header className="lg:hidden sticky top-0 z-30 h-14 bg-white border-b border-gray-100 flex items-center px-4 gap-3">
           <button
@@ -75,7 +75,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           <span className="text-sm font-semibold text-gray-900">Admin</span>
         </header>
 
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>
   )

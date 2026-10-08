@@ -12,9 +12,11 @@ import type { SearchResult } from '../lib/queries'
 import { usePageTitle } from '../hooks/usePageTitle' 
 
 export default function SearchResults() {
-  usePageTitle(q ? \Search: ${q}` : 'Search')`
+  
   const [params] = useSearchParams()
   const q = (params.get('q') ?? '').trim()
+
+  usePageTitle(q ? `Search: ${q}` : 'Search')
 
   const {
     data: results,

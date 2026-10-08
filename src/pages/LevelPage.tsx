@@ -14,7 +14,7 @@ import { EmptyState } from '../components/ui/EmptyState'
 import { usePageTitle } from '../hooks/usePageTitle' 
 
 export default function LevelPage() {
-   usePageTitle(\department?.name{levelNum}L`)`
+   
   const { schoolSlug = '', deptSlug = '', level = '' } = useParams()
   const levelNum = Number(level)
   const [filter, setFilter] = useState('')
@@ -35,6 +35,8 @@ export default function LevelPage() {
     queryFn: () => getMaterialsByDepartmentAndLevel(department!.id, levelNum),
     enabled: !!department?.id && !!levelNum,
   })
+
+  usePageTitle(`${department?.name} ${levelNum}L`)
 
   const filtered = materials?.filter((m) => {
     const q = filter.trim().toLowerCase()
