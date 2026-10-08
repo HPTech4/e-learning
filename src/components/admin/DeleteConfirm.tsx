@@ -4,6 +4,7 @@ interface DeleteConfirmProps {
   open: boolean
   title: string
   description: string
+  confirmLabel?: string
   confirming?: boolean
   onCancel: () => void
   onConfirm: () => void
@@ -13,6 +14,7 @@ export function DeleteConfirm({
   open,
   title,
   description,
+  confirmLabel = 'Delete',
   confirming = false,
   onCancel,
   onConfirm,
@@ -58,7 +60,7 @@ export function DeleteConfirm({
             className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-red-600 hover:bg-red-700 disabled:bg-red-300 text-white transition-colors"
           >
             {confirming && <Loader2 size={14} className="animate-spin" />}
-            {confirming ? 'Deleting...' : 'Delete'}
+{confirming ? 'Working...' : confirmLabel}
           </button>
         </div>
       </div>

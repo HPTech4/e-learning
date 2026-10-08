@@ -24,13 +24,14 @@ import { ChartCard } from '../../components/admin/ChartCard'
 import { getDashboardData } from '../../lib/dashboard'
 import { formatDate } from '../../lib/utils'
 import { cn } from '../../lib/utils'
-import { usePageTitle } from '../../hooks/usePageTitle' 
+import { usePageTitle } from '../../hooks/usePageTitle'
 
 type LevelMetric = 'materials' | 'downloads'
 type DeptSortKey = 'name' | 'materials' | 'downloads' | 'lastUpload'
 
 export default function Dashboard() {
   usePageTitle('Dashboard')
+
   const [levelMetric, setLevelMetric] = useState<LevelMetric>('materials')
   const [deptSort, setDeptSort] = useState<DeptSortKey>('materials')
   const [deptSortAsc, setDeptSortAsc] = useState(false)
@@ -156,9 +157,9 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
           <ChartCard
             title="Materials by School"
-            description="Number of files per school"
+            description="Number of files per school (all 9 schools shown)"
           >
-            <div className="h-72">
+            <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={data.materialsBySchool}
@@ -173,13 +174,15 @@ export default function Dashboard() {
                   <XAxis
                     type="number"
                     allowDecimals={false}
+                    domain={[0, 'dataMax']}
                     tick={{ fontSize: 11, fill: '#6b7280' }}
                   />
                   <YAxis
                     type="category"
                     dataKey="shortName"
-                    width={52}
+                    width={56}
                     tick={{ fontSize: 11, fill: '#374151' }}
+                    interval={0}
                   />
                   <Tooltip
                     cursor={{ fill: 'rgba(124, 58, 237, 0.06)' }}
@@ -193,7 +196,7 @@ export default function Dashboard() {
                     dataKey="materials"
                     fill="#7c3aed"
                     radius={[0, 4, 4, 0]}
-                    barSize={16}
+                    barSize={14}
                   />
                 </BarChart>
               </ResponsiveContainer>
@@ -202,9 +205,9 @@ export default function Dashboard() {
 
           <ChartCard
             title="Downloads by School"
-            description="Total downloads per school"
+            description="Total downloads per school (all 9 schools shown)"
           >
-            <div className="h-72">
+            <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={data.downloadsBySchool}
@@ -219,13 +222,15 @@ export default function Dashboard() {
                   <XAxis
                     type="number"
                     allowDecimals={false}
+                    domain={[0, 'dataMax']}
                     tick={{ fontSize: 11, fill: '#6b7280' }}
                   />
                   <YAxis
                     type="category"
                     dataKey="shortName"
-                    width={52}
+                    width={56}
                     tick={{ fontSize: 11, fill: '#374151' }}
+                    interval={0}
                   />
                   <Tooltip
                     cursor={{ fill: 'rgba(245, 158, 11, 0.08)' }}
@@ -239,7 +244,7 @@ export default function Dashboard() {
                     dataKey="downloads"
                     fill="#f59e0b"
                     radius={[0, 4, 4, 0]}
-                    barSize={16}
+                    barSize={14}
                   />
                 </BarChart>
               </ResponsiveContainer>
@@ -318,7 +323,9 @@ export default function Dashboard() {
                     {data.levelDistribution.map((_, i) => (
                       <Cell
                         key={i}
-                        fill={levelMetric === 'materials' ? '#7c3aed' : '#f59e0b'}
+                        fill={
+                          levelMetric === 'materials' ? '#7c3aed' : '#f59e0b'
+                        }
                       />
                     ))}
                   </Bar>
@@ -522,7 +529,10 @@ function SortHeader({
         )}
       >
         {label}
-        <ArrowUpDown size={11} className={active ? 'opacity-100' : 'opacity-40'} />
+        <ArrowUpDown
+          size={11}
+          className={active ? 'opacity-100' : 'opacity-40'}
+        />
       </button>
     </th>
   )

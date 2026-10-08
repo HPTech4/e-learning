@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import { useAuth } from '../../hooks/useAuth'
+import { DeleteConfirm } from './DeleteConfirm'
 import type { ReactNode } from 'react'
 
 const NAV = [
@@ -22,6 +23,7 @@ const NAV = [
 
 export function AdminLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false)
+  const [confirmSignOut, setConfirmSignOut] = useState(false)
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
 
@@ -34,7 +36,10 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     <div className="h-screen bg-gray-50 flex overflow-hidden">
       {/* Sidebar - desktop */}
       <aside className="hidden lg:flex lg:flex-col w-60 shrink-0 bg-white border-r border-gray-100 h-screen">
-        <SidebarContent user={user?.email} onSignOut={handleSignOut} />
+        <SidebarContent
+          user={user?.email}
+          onSignOut={() => setConfirmSignOut(true)}
+        />
       </aside>
 
       {/* Mobile drawer */}
@@ -54,7 +59,10 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             </button>
             <SidebarContent
               user={user?.email}
-              onSignOut={handleSignOut}
+              onSignOut={() => {
+                setOpen(false)
+                setConfirmSignOut(true)
+              }}
               onNavigate={() => setOpen(false)}
             />
           </aside>
@@ -63,8 +71,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
 
       {/* Main column */}
       <div className="flex-1 min-w-0 flex flex-col h-screen">
-        {/* Mobile top bar */}
-        <header className="lg:hidden sticky top-0 z-30 h-14 bg-white border-b border-gray-100 flex items-center px-4 gap-3">
+        <header className="lg:hidden sticky top-0 z-30 h-14 bg-white border-b border-gray-100 flex items-center px-4 gap-3 shrink-0">
           <button
             onClick={() => setOpen(true)}
             className="p-2 -ml-2 text-gray-700"
@@ -77,6 +84,15 @@ export function AdminLayout({ children }: { children: ReactNode }) {
 
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
+
+      <DeleteConfirm
+        open={confirmSignOut}
+        title="Sign out?"
+        description="Are you sure you want to log out?"
+        confirmLabel="Sign out"
+        onCancel={() => setConfirmSignOut(false)}
+        onConfirm={handleSignOut}
+      />
     </div>
   )
 }
@@ -102,7 +118,7 @@ function SidebarContent({
         </div>
       </div>
 
-      <nav className="flex-1 p-3 space-y-1">
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
         {NAV.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
