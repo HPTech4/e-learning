@@ -1,43 +1,57 @@
-import { Routes, Route, Link } from 'react-router-dom'
-
-function Home() {
-  return (
-    <div className="min-h-screen bg-brand-50 flex items-center justify-center p-6">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-brand-700 mb-4">
-          FUT Minna E-Library
-        </h1>
-        <p className="text-gray-600 mb-6">Setup complete. Ready to build.</p>
-        <Link
-          to="/admin/login"
-          className="inline-block bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-lg font-medium"
-        >
-          Admin Login
-        </Link>
-      </div>
-    </div>
-  )
-}
-
-function AdminLogin() {
-  return (
-    <div className="min-h-screen bg-brand-50 flex items-center justify-center p-6">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-brand-700">Admin Login</h1>
-        <p className="text-gray-600 mt-2">Coming next.</p>
-        <Link to="/" className="text-brand-500 underline mt-4 inline-block">
-          ← Back home
-        </Link>
-      </div>
-    </div>
-  )
-}
+import { Routes, Route } from 'react-router-dom'
+import { ProtectedRoute } from './routes/ProtectedRoute'
+import Home from './pages/Home'
+import Browse from './pages/Browse'
+import SchoolPage from './pages/SchoolPage'
+import DepartmentPage from './pages/DepartmentPage'
+import LevelPage from './pages/LevelPage'
+import SearchResults from './pages/SearchResults'
+import NotFound from './pages/NotFound'
+import AdminLogin from './pages/admin/Login'
+import AdminDashboard from './pages/admin/Dashboard'
+import AdminUpload from './pages/admin/Upload'
+import AdminMaterials from './pages/admin/Materials'
 
 export default function App() {
   return (
     <Routes>
+      {/* Public */}
       <Route path="/" element={<Home />} />
+      <Route path="/browse" element={<Browse />} />
+      <Route path="/school/:schoolSlug" element={<SchoolPage />} />
+      <Route path="/school/:schoolSlug/:deptSlug" element={<DepartmentPage />} />
+      <Route path="/school/:schoolSlug/:deptSlug/:level" element={<LevelPage />} />
+      <Route path="/search" element={<SearchResults />} />
+
+      {/* Admin */}
       <Route path="/admin/login" element={<AdminLogin />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/upload"
+        element={
+          <ProtectedRoute>
+            <AdminUpload />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/materials"
+        element={
+          <ProtectedRoute>
+            <AdminMaterials />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* 404 */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
