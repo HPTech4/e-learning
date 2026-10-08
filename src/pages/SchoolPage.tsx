@@ -5,8 +5,10 @@ import { Layout } from '../components/layout/Layout'
 import { getSchoolBySlug, getDepartmentsBySchool } from '../lib/queries'
 import { DepartmentCard } from '../components/DepartmentCard'
 import { EmptyState } from '../components/ui/EmptyState'
+import { usePageTitle } from '../hooks/usePageTitle' 
 
 export default function SchoolPage() {
+  usePageTitle(school?.short_name)
   const { schoolSlug = '' } = useParams()
 
   const { data: school, isLoading: loadingSchool } = useQuery({

@@ -20,6 +20,7 @@ import {
 } from '../../lib/queries'
 import { supabase } from '../../lib/supabase'
 import { formatDate, formatFileSize } from '../../lib/utils'
+import { usePageTitle } from '../hooks/usePageTitle' 
 
 interface MaterialRow {
   id: string
@@ -46,6 +47,7 @@ interface MaterialRow {
 const LEVELS = [100, 200, 300, 400, 500]
 
 export default function Materials() {
+  usePageTitle('Material')
   const qc = useQueryClient()
 
   const [search, setSearch] = useState('')

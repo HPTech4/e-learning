@@ -11,8 +11,10 @@ import {
 import { LevelTabs } from '../components/LevelTabs'
 import { MaterialRow } from '../components/MaterialRow'
 import { EmptyState } from '../components/ui/EmptyState'
+import { usePageTitle } from '../hooks/usePageTitle' 
 
 export default function LevelPage() {
+   usePageTitle(\department?.name{levelNum}L`)`
   const { schoolSlug = '', deptSlug = '', level = '' } = useParams()
   const levelNum = Number(level)
   const [filter, setFilter] = useState('')

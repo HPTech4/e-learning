@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#f5f3ff"/>
+  <rect x="0" y="0" width="1200" height="8" fill="#7c3aed"/>
+  <g transform="translate(80, 90)">
+    <rect width="72" height="72" rx="16" fill="#7c3aed"/>
+    <path d="M36 20 L58 29 L36 38 L14 29 Z" fill="#ffffff"/>
+    <path d="M24 33 L24 48 C24 50 30 54 36 54 C42 54 48 50 48 48 L48 33 L36 38 Z" fill="#ffffff" opacity="0.85"/>
+  </g>
+  <text x="180" y="128" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="600" fill="#6d28d9">FUT MINNA</text>
+  <text x="180" y="162" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#6b7280">Federal University of Technology, Minna</text>
+
+  <text x="80" y="300" font-family="Inter, system-ui, sans-serif" font-size="68" font-weight="800" fill="#111827">Course materials,</text>
+  <text x="80" y="380" font-family="Inter, system-ui, sans-serif" font-size="68" font-weight="800" fill="#7c3aed">organized by level.</text>
+
+  <text x="80" y="460" font-family="Inter, system-ui, sans-serif" font-size="26" fill="#4b5563">Browse by school · Pick your department · Download</text>
+
+  <g transform="translate(80, 510)">
+    <rect x="0" y="0" width="150" height="44" rx="10" fill="#7c3aed"/>
+    <text x="75" y="28" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="600" fill="#ffffff">9 Schools</text>
+
+    <rect x="166" y="0" width="200" height="44" rx="10" fill="#ede9fe"/>
+    <text x="266" y="28" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="600" fill="#6d28d9">100 – 500 Level</text>
+
+    <rect x="382" y="0" width="200" height="44" rx="10" fill="#ede9fe"/>
+    <text x="482" y="28" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="600" fill="#6d28d9">Free downloads</text>
+  </g>
+</svg>

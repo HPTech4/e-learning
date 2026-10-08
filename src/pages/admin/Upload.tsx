@@ -19,12 +19,14 @@ import {
 } from '../../lib/queries'
 import { useAuth } from '../../hooks/useAuth'
 import { cn, formatFileSize } from '../../lib/utils'
+import { usePageTitle } from '../hooks/usePageTitle'
 
 const LEVELS = [100, 200, 300, 400, 500]
 const MAX_SIZE = 50 * 1024 * 1024 // 50 MB
 const ACCEPT = '.pdf,.doc,.docx,.ppt,.pptx,.txt'
 
 export default function Upload() {
+  usePageTitle('Upload')
   const qc = useQueryClient()
   const { user } = useAuth()
 

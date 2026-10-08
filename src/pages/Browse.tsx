@@ -4,8 +4,10 @@ import { Layout } from '../components/layout/Layout'
 import { getSchools } from '../lib/queries'
 import { SchoolCard } from '../components/SchoolCard'
 import { EmptyState } from '../components/ui/EmptyState'
+import { usePageTitle } from '../hooks/usePageTitle' 
 
 export default function Browse() {
+  usePageTitle('Browse Schools')
   const { data: schools, isLoading, error } = useQuery({
     queryKey: ['schools'],
     queryFn: getSchools,

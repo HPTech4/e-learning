@@ -8,8 +8,10 @@ import {
 } from '../lib/queries'
 import { LevelTabs } from '../components/LevelTabs'
 import { EmptyState } from '../components/ui/EmptyState'
+import { usePageTitle } from '../hooks/usePageTitle' 
 
 export default function DepartmentPage() {
+  usePageTitle(department?.name)
   const { schoolSlug = '', deptSlug = '' } = useParams()
 
   const { data: school, isLoading: loadingSchool } = useQuery({
