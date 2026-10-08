@@ -1,75 +1,49 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# FUT Minna E-Library
 
-Currently, two official plugins are available:
+A lightweight digital library for **Federal University of Technology, Minna**. Students browse by School → Department → Level, search by course code, and download lecture materials. Admins upload and manage everything from a protected dashboard.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+No student accounts. No login walls. Just open, search, download.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+### For Students (no login required)
+- Browse all 9 schools and their departments
+- Drill down: School → Department → Level (100–500)
+- Search across the entire library by course code or course title
+- Download materials with one tap
+- Fully responsive — built mobile-first
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### For Admins (login required)
+- Secure email + password login
+- Upload materials with school, department, level, course code, and title
+- Manage and delete existing materials
+- Dashboard with live stats:
+  - Total materials & downloads
+  - Uploads this week
+  - Materials and downloads grouped by school
+  - Level distribution (100–500)
+  - Top downloaded materials
+  - Department activity table
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Layer | Choice |
+|---|---|
+| Frontend | React 18 + TypeScript |
+| Build | Vite |
+| Styling | Tailwind CSS v4 |
+| Routing | React Router v6 |
+| Data fetching | TanStack Query (React Query) |
+| Charts | Recharts |
+| Icons | lucide-react |
+| Backend / DB | Supabase (Postgres + Storage + Auth) |
+| Hosting | Vercel |
 
-```
+---
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+## Project Structure
