@@ -8,7 +8,7 @@ A digital library for **Federal University of Technology, Minna**. Students brow
 
 ## Live
 
-🔗 **[futminna-elibrary.vercel.app](https://futminna-elibrary.vercel.app)** *(replace with your URL)*
+🔗 **[https://materials-hub.vercel.app/]((https://materials-hub.vercel.app/))** *(replace with your URL)*
 
 ---
 
@@ -46,17 +46,6 @@ A digital library for **Federal University of Technology, Minna**. Students brow
 - **Hosting:** Vercel
 
 ---
-
-## Screenshots
-
-### Student side
-![Home](./public/screenshots/home.png)
-![Browse](./public/screenshots/browse.png)
-![Level page](./public/screenshots/level.png)
-
-### Admin side
-![Dashboard](./public/screenshots/dashboard.png)
-![Upload](./public/screenshots/upload.png)
 
 ---
 
