@@ -6,8 +6,8 @@
     <path d="M36 20 L58 29 L36 38 L14 29 Z" fill="#ffffff"/>
     <path d="M24 33 L24 48 C24 50 30 54 36 54 C42 54 48 50 48 48 L48 33 L36 38 Z" fill="#ffffff" opacity="0.85"/>
   </g>
-  <text x="180" y="128" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="600" fill="#6d28d9">FUT MINNA</text>
-  <text x="180" y="162" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#6b7280">Federal University of Technology, Minna</text>
+  <text x="180" y="128" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="600" fill="#6d28d9">WCF</text>
+  <text x="180" y="162" font-family="Inter, system-ui, sans-serif" font-size="22" fill="#6b7280">Winners Chapel Fellowship</text>
 
   <text x="80" y="300" font-family="Inter, system-ui, sans-serif" font-size="68" font-weight="800" fill="#111827">Course materials,</text>
   <text x="80" y="380" font-family="Inter, system-ui, sans-serif" font-size="68" font-weight="800" fill="#7c3aed">organized by level.</text>

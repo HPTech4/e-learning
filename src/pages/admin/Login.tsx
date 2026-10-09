@@ -61,7 +61,7 @@ export default function Login() {
             </div>
             <h1 className="text-2xl font-bold text-gray-900">Admin sign in</h1>
             <p className="text-sm text-gray-500 mt-2">
-              Access the FUT Minna E-Library admin panel.
+              Access the WSF FUT Minna e-Library admin panel.
             </p>
           </div>
 
@@ -91,7 +91,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-200 bg-white focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none transition"
-                placeholder="admin@futminna.edu.ng"
+                placeholder="admin@wsf.org"
               />
             </div>
 

@@ -22,9 +22,9 @@ export function Header() {
             </div>
             <div className="hidden sm:block leading-tight">
               <div className="text-sm font-semibold text-gray-900">
-                FUT Minna
+                WCF e-Library FUT Minna
               </div>
-              <div className="text-xs text-gray-500">E-Library</div>
+              <div className="text-xs text-gray-500">e-Library</div>
             </div>
           </Link>
 

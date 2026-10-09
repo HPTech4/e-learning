@@ -113,7 +113,7 @@ function SidebarContent({
           <GraduationCap size={18} className="text-white" />
         </div>
         <div className="leading-tight">
-          <div className="text-sm font-semibold text-gray-900">FUT Minna</div>
+          <div className="text-sm font-semibold text-gray-900">WSF FUT Minna</div>
           <div className="text-xs text-gray-500">Admin Panel</div>
         </div>
       </div>

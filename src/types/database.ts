@@ -57,57 +57,61 @@ export type Database = {
         ]
       }
       materials: {
-        Row: {
-          id: string
-          department_id: string
-          level: number
-          course_code: string
-          course_title: string
-          file_url: string
-          file_name: string
-          file_size: number | null
-          download_count: number
-          last_downloaded_at: string | null
-          uploaded_by: string | null
-          uploaded_at: string
-        }
-        Insert: {
-          id?: string
-          department_id: string
-          level: number
-          course_code: string
-          course_title: string
-          file_url: string
-          file_name: string
-          file_size?: number | null
-          download_count?: number
-          last_downloaded_at?: string | null
-          uploaded_by?: string | null
-          uploaded_at?: string
-        }
-        Update: {
-          id?: string
-          department_id?: string
-          level?: number
-          course_code?: string
-          course_title?: string
-          file_url?: string
-          file_name?: string
-          file_size?: number | null
-          download_count?: number
-          last_downloaded_at?: string | null
-          uploaded_by?: string | null
-          uploaded_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'materials_department_id_fkey'
-            columns: ['department_id']
-            referencedRelation: 'departments'
-            referencedColumns: ['id']
-          }
-        ]
-      }
+  Row: {
+    id: string
+    department_id: string
+    level: number
+    course_code: string
+    course_title: string
+    file_url: string
+    file_name: string
+    file_size: number | null
+    exam_year: number | null
+    download_count: number
+    last_downloaded_at: string | null
+    uploaded_by: string | null
+    uploaded_at: string
+  }
+  Insert: {
+    id?: string
+    department_id: string
+    level: number
+    course_code: string
+    course_title: string
+    file_url: string
+    file_name: string
+    file_size?: number | null
+    exam_year?: number | null
+    download_count?: number
+    last_downloaded_at?: string | null
+    uploaded_by?: string | null
+    uploaded_at?: string
+  }
+  Update: {
+    id?: string
+    department_id?: string
+    level?: number
+    course_code?: string
+    course_title?: string
+    file_url?: string
+    file_name?: string
+    file_size?: number | null
+    exam_year?: number | null
+    download_count?: number
+    last_downloaded_at?: string | null
+    uploaded_by?: string | null
+    uploaded_at?: string
+  }
+  Relationships: [
+    {
+      foreignKeyName: 'materials_department_id_fkey'
+      columns: ['department_id']
+      referencedRelation: 'departments'
+      referencedColumns: ['id']
+    }
+  ]
+}
+       
     }
     Views: Record<string, never>
     Functions: {

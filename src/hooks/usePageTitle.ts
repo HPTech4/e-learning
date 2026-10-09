@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const BASE = 'FUT Minna E-Library'
+const BASE = 'WCF e-Library FUT Minna'
 
 export function usePageTitle(title?: string) {
   useEffect(() => {

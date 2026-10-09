@@ -35,7 +35,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-medium mb-5">
             <GraduationCap size={14} />
-            Federal University of Technology, Minna
+            Winners Chapel Fellowship FUT Minna
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-bold text-gray-900 leading-tight mb-4">
