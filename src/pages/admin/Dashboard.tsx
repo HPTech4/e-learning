@@ -142,11 +142,11 @@ export default function Dashboard() {
           />
           <StatCard
             label="Most Downloaded"
-            value={data.mostDownloadedCourse?.course_code ?? '—'}
+            value={data.mostDownloadedCourse?.course_code ?? "—"}
             hint={
               data.mostDownloadedCourse
                 ? `${data.mostDownloadedCourse.download_count} downloads`
-                : 'No data yet'
+                : "No data yet"
             }
             icon={Trophy}
             accent="accent"
@@ -174,21 +174,21 @@ export default function Dashboard() {
                   <XAxis
                     type="number"
                     allowDecimals={false}
-                    domain={[0, 'dataMax']}
-                    tick={{ fontSize: 11, fill: '#6b7280' }}
+                    domain={[0, "dataMax"]}
+                    tick={{ fontSize: 11, fill: "#6b7280" }}
                   />
                   <YAxis
                     type="category"
                     dataKey="shortName"
                     width={56}
-                    tick={{ fontSize: 11, fill: '#374151' }}
+                    tick={{ fontSize: 11, fill: "#374151" }}
                     interval={0}
                   />
                   <Tooltip
-                    cursor={{ fill: 'rgba(124, 58, 237, 0.06)' }}
+                    cursor={{ fill: "rgba(124, 58, 237, 0.06)" }}
                     contentStyle={{
                       borderRadius: 8,
-                      border: '1px solid #e5e7eb',
+                      border: "1px solid #e5e7eb",
                       fontSize: 12,
                     }}
                   />
@@ -222,21 +222,21 @@ export default function Dashboard() {
                   <XAxis
                     type="number"
                     allowDecimals={false}
-                    domain={[0, 'dataMax']}
-                    tick={{ fontSize: 11, fill: '#6b7280' }}
+                    domain={[0, "dataMax"]}
+                    tick={{ fontSize: 11, fill: "#6b7280" }}
                   />
                   <YAxis
                     type="category"
                     dataKey="shortName"
                     width={56}
-                    tick={{ fontSize: 11, fill: '#374151' }}
+                    tick={{ fontSize: 11, fill: "#374151" }}
                     interval={0}
                   />
                   <Tooltip
-                    cursor={{ fill: 'rgba(245, 158, 11, 0.08)' }}
+                    cursor={{ fill: "rgba(245, 158, 11, 0.08)" }}
                     contentStyle={{
                       borderRadius: 8,
-                      border: '1px solid #e5e7eb',
+                      border: "1px solid #e5e7eb",
                       fontSize: 12,
                     }}
                   />
@@ -257,30 +257,30 @@ export default function Dashboard() {
           <ChartCard
             title="Level Distribution"
             description={
-              levelMetric === 'materials'
-                ? 'Materials available per level'
-                : 'Downloads per level'
+              levelMetric === "materials"
+                ? "Materials available per level"
+                : "Downloads per level"
             }
             action={
               <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
                 <button
-                  onClick={() => setLevelMetric('materials')}
+                  onClick={() => setLevelMetric("materials")}
                   className={cn(
-                    'px-3 py-1 rounded-md text-xs font-medium transition-colors',
-                    levelMetric === 'materials'
-                      ? 'bg-white text-brand-700 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                    "px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                    levelMetric === "materials"
+                      ? "bg-white text-brand-700 shadow-sm"
+                      : "text-gray-600 hover:text-gray-900",
                   )}
                 >
                   Materials
                 </button>
                 <button
-                  onClick={() => setLevelMetric('downloads')}
+                  onClick={() => setLevelMetric("downloads")}
                   className={cn(
-                    'px-3 py-1 rounded-md text-xs font-medium transition-colors',
-                    levelMetric === 'downloads'
-                      ? 'bg-white text-brand-700 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
+                    "px-3 py-1 rounded-md text-xs font-medium transition-colors",
+                    levelMetric === "downloads"
+                      ? "bg-white text-brand-700 shadow-sm"
+                      : "text-gray-600 hover:text-gray-900",
                   )}
                 >
                   Downloads
@@ -301,30 +301,26 @@ export default function Dashboard() {
                   />
                   <XAxis
                     dataKey="level"
-                    tick={{ fontSize: 11, fill: '#374151' }}
+                    tick={{ fontSize: 11, fill: "#374151" }}
                   />
                   <YAxis
                     allowDecimals={false}
-                    tick={{ fontSize: 11, fill: '#6b7280' }}
+                    tick={{ fontSize: 11, fill: "#6b7280" }}
                   />
                   <Tooltip
-                    cursor={{ fill: 'rgba(124, 58, 237, 0.05)' }}
+                    cursor={{ fill: "rgba(124, 58, 237, 0.05)" }}
                     contentStyle={{
                       borderRadius: 8,
-                      border: '1px solid #e5e7eb',
+                      border: "1px solid #e5e7eb",
                       fontSize: 12,
                     }}
                   />
-                  <Bar
-                    dataKey={levelMetric}
-                    radius={[4, 4, 0, 0]}
-                    barSize={48}
-                  >
+                  <Bar dataKey={levelMetric} radius={[4, 4, 0, 0]} barSize={48}>
                     {data.levelDistribution.map((_, i) => (
                       <Cell
                         key={i}
                         fill={
-                          levelMetric === 'materials' ? '#7c3aed' : '#f59e0b'
+                          levelMetric === "materials" ? "#7c3aed" : "#f59e0b"
                         }
                       />
                     ))}
@@ -441,30 +437,25 @@ export default function Dashboard() {
                 <tr className="text-left text-xs text-gray-500 border-b border-gray-100">
                   <SortHeader
                     label="Department"
-                    active={deptSort === 'name'}
-                    asc={deptSortAsc}
-                    onClick={() => toggleSort('name')}
+                    active={deptSort === "name"}
+                    onClick={() => toggleSort("name")}
                   />
-                  <th className="font-medium px-2 py-2">School</th>
                   <SortHeader
                     label="Materials"
-                    active={deptSort === 'materials'}
-                    asc={deptSortAsc}
-                    onClick={() => toggleSort('materials')}
+                    active={deptSort === "materials"}
+                    onClick={() => toggleSort("materials")}
                     align="right"
                   />
                   <SortHeader
                     label="Downloads"
-                    active={deptSort === 'downloads'}
-                    asc={deptSortAsc}
-                    onClick={() => toggleSort('downloads')}
+                    active={deptSort === "downloads"}
+                    onClick={() => toggleSort("downloads")}
                     align="right"
                   />
                   <SortHeader
                     label="Last Upload"
-                    active={deptSort === 'lastUpload'}
-                    asc={deptSortAsc}
-                    onClick={() => toggleSort('lastUpload')}
+                    active={deptSort === "lastUpload"}
+                    onClick={() => toggleSort("lastUpload")}
                     align="right"
                   />
                 </tr>
@@ -488,7 +479,7 @@ export default function Dashboard() {
                       {d.downloads}
                     </td>
                     <td className="px-2 py-2.5 text-right text-xs text-gray-500">
-                      {d.lastUpload ? formatDate(d.lastUpload) : '—'}
+                      {d.lastUpload ? formatDate(d.lastUpload) : "—"}
                     </td>
                   </tr>
                 ))}
@@ -498,19 +489,18 @@ export default function Dashboard() {
         </ChartCard>
       </div>
     </AdminLayout>
-  )
+  );
 }
 
 function SortHeader({
   label,
   active,
-  asc,
   onClick,
   align = 'left',
 }: {
   label: string
   active: boolean
-  asc: boolean
+
   onClick: () => void
   align?: 'left' | 'right'
 }) {

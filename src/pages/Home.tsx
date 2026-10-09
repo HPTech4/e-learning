@@ -1,25 +1,31 @@
-import { useState, FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
-import { Search, ArrowRight, BookOpen, Download, GraduationCap } from 'lucide-react'
-import { Layout } from '../components/layout/Layout'
-import { getSchools } from '../lib/queries'
-import { SchoolCard } from '../components/SchoolCard'
-import { Button } from '../components/ui/Button'
+import { useState, type FormEvent } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import {
+  Search,
+  ArrowRight,
+  BookOpen,
+  Download,
+  GraduationCap,
+} from "lucide-react";
+import { Layout } from "../components/layout/Layout";
+import { getSchools } from "../lib/queries";
+import { SchoolCard } from "../components/SchoolCard";
+import { Button } from "../components/ui/Button";
 
 export default function Home() {
-  const [q, setQ] = useState('')
-  const navigate = useNavigate()
+  const [q, setQ] = useState("");
+  const navigate = useNavigate();
 
   const { data: schools, isLoading } = useQuery({
-    queryKey: ['schools'],
+    queryKey: ["schools"],
     queryFn: getSchools,
-  })
+  });
 
   function onSubmit(e: FormEvent) {
-    e.preventDefault()
-    const trimmed = q.trim()
-    if (trimmed) navigate(`/search?q=${encodeURIComponent(trimmed)}`)
+    e.preventDefault();
+    const trimmed = q.trim();
+    if (trimmed) navigate(`/search?q=${encodeURIComponent(trimmed)}`);
   }
 
   return (
@@ -68,8 +74,7 @@ export default function Home() {
 
           <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-sm text-gray-500">
             <span className="inline-flex items-center gap-2">
-              <BookOpen size={16} className="text-brand-500" />
-              9 Schools
+              <BookOpen size={16} className="text-brand-500" />9 Schools
             </span>
             <span className="inline-flex items-center gap-2">
               <Download size={16} className="text-brand-500" />
@@ -131,5 +136,5 @@ export default function Home() {
         </div>
       </section>
     </Layout>
-  )
+  );
 }

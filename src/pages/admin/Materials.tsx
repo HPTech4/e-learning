@@ -4,7 +4,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   Search,
   FileStack,
-  Download,
   Trash2,
   ExternalLink,
   Filter,
@@ -13,7 +12,6 @@ import { AdminLayout } from '../../components/admin/AdminLayout'
 import { DeleteConfirm } from '../../components/admin/DeleteConfirm'
 import { EmptyState } from '../../components/ui/EmptyState'
 import {
-  getAllMaterials,
   deleteMaterial,
   getSchools,
   getDepartmentsBySchool,

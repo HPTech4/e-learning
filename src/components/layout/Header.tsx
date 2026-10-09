@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useState, FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Search, GraduationCap } from 'lucide-react'
 
 export function Header() {

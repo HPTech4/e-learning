@@ -1,6 +1,13 @@
-import { useState, useRef, useMemo, DragEvent, ChangeEvent, FormEvent } from 'react'
-import { Link } from 'react-router-dom'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  useState,
+  useRef,
+  useMemo,
+  type DragEvent,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
+import { Link } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   UploadCloud,
   FileText,
@@ -9,121 +16,121 @@ import {
   CheckCircle2,
   AlertCircle,
   ExternalLink,
-} from 'lucide-react'
-import { AdminLayout } from '../../components/admin/AdminLayout'
+} from "lucide-react";
+import { AdminLayout } from "../../components/admin/AdminLayout";
 import {
   getSchools,
   getDepartmentsBySchool,
   uploadMaterialFile,
   createMaterial,
-} from '../../lib/queries'
-import { useAuth } from '../../hooks/useAuth'
-import { cn, formatFileSize } from '../../lib/utils'
-import { usePageTitle } from '../../hooks/usePageTitle'
+} from "../../lib/queries";
+import { useAuth } from "../../hooks/useAuth";
+import { cn, formatFileSize } from "../../lib/utils";
+import { usePageTitle } from "../../hooks/usePageTitle";
 
-const LEVELS = [100, 200, 300, 400, 500]
-const MAX_SIZE = 50 * 1024 * 1024 // 50 MB
-const ACCEPT = '.pdf,.doc,.docx,.ppt,.pptx,.txt'
+const LEVELS = [100, 200, 300, 400, 500];
+const MAX_SIZE = 50 * 1024 * 1024; // 50 MB
+const ACCEPT = ".pdf,.doc,.docx,.ppt,.pptx,.txt";
 
 export default function Upload() {
-  usePageTitle('Upload')
-  const qc = useQueryClient()
-  const { user } = useAuth()
+  usePageTitle("Upload");
+  const qc = useQueryClient();
+  const { user } = useAuth();
 
-  const [schoolId, setSchoolId] = useState('')
-  const [departmentId, setDepartmentId] = useState('')
-  const [level, setLevel] = useState<number | ''>('')
-  const [courseCode, setCourseCode] = useState('')
-  const [courseTitle, setCourseTitle] = useState('')
-  const [file, setFile] = useState<File | null>(null)
-  const [dragging, setDragging] = useState(false)
+  const [schoolId, setSchoolId] = useState("");
+  const [departmentId, setDepartmentId] = useState("");
+  const [level, setLevel] = useState<number | "">("");
+  const [courseCode, setCourseCode] = useState("");
+  const [courseTitle, setCourseTitle] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [dragging, setDragging] = useState(false);
 
-  const [submitting, setSubmitting] = useState(false)
-  const [progress, setProgress] = useState('')
+  const [submitting, setSubmitting] = useState(false);
+  const [progress, setProgress] = useState("");
   const [success, setSuccess] = useState<{
-    courseCode: string
-    fileUrl: string
-  } | null>(null)
-  const [error, setError] = useState('')
+    courseCode: string;
+    fileUrl: string;
+  } | null>(null);
+  const [error, setError] = useState("");
 
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { data: schools } = useQuery({
-    queryKey: ['schools'],
+    queryKey: ["schools"],
     queryFn: getSchools,
-  })
+  });
 
   const { data: departments } = useQuery({
-    queryKey: ['departments', schoolId],
+    queryKey: ["departments", schoolId],
     queryFn: () => getDepartmentsBySchool(schoolId),
     enabled: !!schoolId,
-  })
+  });
 
   const selectedDept = useMemo(
     () => departments?.find((d) => d.id === departmentId),
-    [departments, departmentId]
-  )
+    [departments, departmentId],
+  );
 
   function resetForm() {
-    setSchoolId('')
-    setDepartmentId('')
-    setLevel('')
-    setCourseCode('')
-    setCourseTitle('')
-    setFile(null)
-    setProgress('')
-    setError('')
-    if (inputRef.current) inputRef.current.value = ''
+    setSchoolId("");
+    setDepartmentId("");
+    setLevel("");
+    setCourseCode("");
+    setCourseTitle("");
+    setFile(null);
+    setProgress("");
+    setError("");
+    if (inputRef.current) inputRef.current.value = "";
   }
 
   function handleFile(f: File | null) {
-    setError('')
-    if (!f) return
+    setError("");
+    if (!f) return;
     if (f.size > MAX_SIZE) {
-      setError(`File too large. Max is ${formatFileSize(MAX_SIZE)}.`)
-      return
+      setError(`File too large. Max is ${formatFileSize(MAX_SIZE)}.`);
+      return;
     }
-    setFile(f)
+    setFile(f);
   }
 
   function onDrop(e: DragEvent<HTMLDivElement>) {
-    e.preventDefault()
-    setDragging(false)
-    handleFile(e.dataTransfer.files?.[0] ?? null)
+    e.preventDefault();
+    setDragging(false);
+    handleFile(e.dataTransfer.files?.[0] ?? null);
   }
 
   function onFileInput(e: ChangeEvent<HTMLInputElement>) {
-    handleFile(e.target.files?.[0] ?? null)
+    handleFile(e.target.files?.[0] ?? null);
   }
 
   async function onSubmit(e: FormEvent) {
-    e.preventDefault()
-    setError('')
-    setSuccess(null)
+    e.preventDefault();
+    setError("");
+    setSuccess(null);
 
     if (!schoolId || !departmentId || !level || !courseCode || !courseTitle) {
-      setError('Fill in every field before uploading.')
-      return
+      setError("Fill in every field before uploading.");
+      return;
     }
     if (!file) {
-      setError('Choose a file to upload.')
-      return
+      setError("Choose a file to upload.");
+      return;
     }
     if (!selectedDept) {
-      setError('Selected department is invalid.')
-      return
+      setError("Selected department is invalid.");
+      return;
     }
 
-    setSubmitting(true)
+    setSubmitting(true);
     try {
-      setProgress('Uploading file...')
+      setProgress("Uploading file...");
       const { publicUrl } = await uploadMaterialFile(
         file,
         selectedDept.slug,
-        Number(level)
-      )
+        Number(level),
+      );
 
-      setProgress('Saving record...')
+      setProgress("Saving record...");
       await createMaterial({
         department_id: departmentId,
         level: Number(level),
@@ -132,24 +139,24 @@ export default function Upload() {
         file_url: publicUrl,
         file_name: file.name,
         file_size: file.size,
-        uploaded_by: user?.email ?? 'admin',
-      })
+        uploaded_by: user?.email ?? "admin",
+      });
 
       // Invalidate cached lists so browse + dashboard refresh
-      qc.invalidateQueries({ queryKey: ['materials'] })
-      qc.invalidateQueries({ queryKey: ['search'] })
-      qc.invalidateQueries({ queryKey: ['dashboard'] })
+      qc.invalidateQueries({ queryKey: ["materials"] });
+      qc.invalidateQueries({ queryKey: ["search"] });
+      qc.invalidateQueries({ queryKey: ["dashboard"] });
 
       setSuccess({
         courseCode: courseCode.trim().toUpperCase(),
         fileUrl: publicUrl,
-      })
-      resetForm()
+      });
+      resetForm();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Upload failed.')
+      setError(err instanceof Error ? err.message : "Upload failed.");
     } finally {
-      setSubmitting(false)
-      setProgress('')
+      setSubmitting(false);
+      setProgress("");
     }
   }
 
@@ -159,14 +166,17 @@ export default function Upload() {
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Upload material</h1>
           <p className="text-sm text-gray-500 mt-1">
-            Add a new file to the library. It appears immediately on the
-            student side.
+            Add a new file to the library. It appears immediately on the student
+            side.
           </p>
         </div>
 
         {success && (
           <div className="mb-6 flex items-start gap-3 p-4 rounded-xl bg-green-50 border border-green-100">
-            <CheckCircle2 size={20} className="text-green-600 shrink-0 mt-0.5" />
+            <CheckCircle2
+              size={20}
+              className="text-green-600 shrink-0 mt-0.5"
+            />
             <div className="flex-1">
               <p className="text-sm font-medium text-green-900">
                 {success.courseCode} uploaded successfully.
@@ -194,8 +204,8 @@ export default function Upload() {
               <select
                 value={schoolId}
                 onChange={(e) => {
-                  setSchoolId(e.target.value)
-                  setDepartmentId('')
+                  setSchoolId(e.target.value);
+                  setDepartmentId("");
                 }}
                 required
                 className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-200 bg-white focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none"
@@ -218,7 +228,7 @@ export default function Upload() {
                 className="w-full px-3 py-2.5 text-sm rounded-lg border border-gray-200 bg-white focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none disabled:bg-gray-50 disabled:text-gray-400"
               >
                 <option value="">
-                  {schoolId ? 'Select a department' : 'Select a school first'}
+                  {schoolId ? "Select a department" : "Select a school first"}
                 </option>
                 {departments?.map((d) => (
                   <option key={d.id} value={d.id}>
@@ -236,10 +246,10 @@ export default function Upload() {
                     type="button"
                     onClick={() => setLevel(l)}
                     className={cn(
-                      'px-4 py-2 rounded-lg text-sm font-semibold border transition-colors',
+                      "px-4 py-2 rounded-lg text-sm font-semibold border transition-colors",
                       level === l
-                        ? 'bg-brand-600 text-white border-brand-600'
-                        : 'bg-white text-gray-700 border-gray-200 hover:border-brand-300'
+                        ? "bg-brand-600 text-white border-brand-600"
+                        : "bg-white text-gray-700 border-gray-200 hover:border-brand-300",
                     )}
                   >
                     {l}
@@ -281,17 +291,17 @@ export default function Upload() {
               {!file ? (
                 <div
                   onDragOver={(e) => {
-                    e.preventDefault()
-                    setDragging(true)
+                    e.preventDefault();
+                    setDragging(true);
                   }}
                   onDragLeave={() => setDragging(false)}
                   onDrop={onDrop}
                   onClick={() => inputRef.current?.click()}
                   className={cn(
-                    'cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors',
+                    "cursor-pointer rounded-lg border-2 border-dashed p-8 text-center transition-colors",
                     dragging
-                      ? 'border-brand-400 bg-brand-50'
-                      : 'border-gray-200 hover:border-brand-300 hover:bg-gray-50'
+                      ? "border-brand-400 bg-brand-50"
+                      : "border-gray-200 hover:border-brand-300 hover:bg-gray-50",
                   )}
                 >
                   <UploadCloud
@@ -322,8 +332,8 @@ export default function Upload() {
                   <button
                     type="button"
                     onClick={() => {
-                      setFile(null)
-                      if (inputRef.current) inputRef.current.value = ''
+                      setFile(null);
+                      if (inputRef.current) inputRef.current.value = "";
                     }}
                     className="shrink-0 p-1 text-gray-400 hover:text-red-600"
                     aria-label="Remove file"
@@ -355,11 +365,11 @@ export default function Upload() {
               className="w-full inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-brand-300 text-white px-4 py-3 rounded-lg text-sm font-medium transition-colors"
             >
               {submitting && <Loader2 size={16} className="animate-spin" />}
-              {submitting ? progress || 'Uploading...' : 'Upload material'}
+              {submitting ? progress || "Uploading..." : "Upload material"}
             </button>
 
             <p className="text-xs text-gray-400 text-center">
-              Need to edit or delete an upload? Go to{' '}
+              Need to edit or delete an upload? Go to{" "}
               <Link
                 to="/admin/materials"
                 className="text-brand-600 hover:text-brand-700 font-medium"
@@ -372,7 +382,7 @@ export default function Upload() {
         </form>
       </div>
     </AdminLayout>
-  )
+  );
 }
 
 function Field({
@@ -380,9 +390,9 @@ function Field({
   required,
   children,
 }: {
-  label: string
-  required?: boolean
-  children: React.ReactNode
+  label: string;
+  required?: boolean;
+  children: React.ReactNode;
 }) {
   return (
     <div>
@@ -391,5 +401,5 @@ function Field({
       </label>
       {children}
     </div>
-  )
+  );
 }

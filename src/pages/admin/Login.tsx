@@ -1,41 +1,43 @@
-import { useState, FormEvent, useEffect } from 'react'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { GraduationCap, Loader2, AlertCircle, ArrowLeft } from 'lucide-react'
-import { useAuth } from '../../hooks/useAuth'
+import { useState, useEffect, type FormEvent } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { GraduationCap, Loader2, AlertCircle, ArrowLeft } from "lucide-react";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  const [submitting, setSubmitting] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const { signIn, isAuthenticated, loading } = useAuth()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? '/admin'
+  const { signIn, isAuthenticated, loading } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from =
+    (location.state as { from?: { pathname: string } })?.from?.pathname ??
+    "/admin";
 
   // If already logged in, redirect
   useEffect(() => {
     if (!loading && isAuthenticated) {
-      navigate(from, { replace: true })
+      navigate(from, { replace: true });
     }
-  }, [loading, isAuthenticated, from, navigate])
+  }, [loading, isAuthenticated, from, navigate]);
 
   async function onSubmit(e: FormEvent) {
-    e.preventDefault()
-    setError('')
-    setSubmitting(true)
+    e.preventDefault();
+    setError("");
+    setSubmitting(true);
     try {
-      await signIn(email.trim(), password)
-      navigate(from, { replace: true })
+      await signIn(email.trim(), password);
+      navigate(from, { replace: true });
     } catch (err) {
       setError(
         err instanceof Error
           ? err.message
-          : 'Sign-in failed. Check your credentials.'
-      )
+          : "Sign-in failed. Check your credentials.",
+      );
     } finally {
-      setSubmitting(false)
+      setSubmitting(false);
     }
   }
 
@@ -118,7 +120,7 @@ export default function Login() {
               className="w-full inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 disabled:bg-brand-300 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors"
             >
               {submitting && <Loader2 size={16} className="animate-spin" />}
-              {submitting ? 'Signing in...' : 'Sign in'}
+              {submitting ? "Signing in..." : "Sign in"}
             </button>
           </form>
 
@@ -129,5 +131,5 @@ export default function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }
